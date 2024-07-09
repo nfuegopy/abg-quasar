@@ -5,65 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentación de Frontend Quasar</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px;
-            background-color: #f7f7f7;
-            color: #333;
-        }
-        header {
-            background-color: #0366d6;
-            padding: 20px;
-            text-align: center;
-        }
-        header h1 {
-            color: #fff;
-            margin: 0;
-        }
-        article {
-            margin-top: 20px;
-        }
-        section {
-            background-color: #fff;
-            margin: 20px 10px;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #0366d6;
-        }
-        p {
-            line-height: 1.6;
-            margin: 10px 0;
-        }
-        .metadata, .structure {
-            font-family: monospace;
-            background-color: #f4f4f4;
-            padding: 10px;
-            border-left: 5px solid #0366d6;
-            margin: 10px 0;
-        }
-        a {
-            color: #0645ad;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .structure {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            position: relative;
-        }
-        .icon-folder {
-            color: #f9a825;
-        }
-        .icon-file {
-            color: #6a1b9a;
-        }
-    </style>
+
 </head>
 <body>
     <header>
