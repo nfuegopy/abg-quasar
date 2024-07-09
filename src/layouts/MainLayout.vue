@@ -41,6 +41,18 @@
           </q-item-section>
           <q-item-section>Demandados</q-item-section>
         </q-item>
+        <q-item clickable to="/asset-types" exact>
+          <q-item-section avatar>
+            <q-icon name="label_important" />
+          </q-item-section>
+          <q-item-section>Tipo de Bienes</q-item-section>
+        </q-item>
+        <q-item clickable to="/assets" exact>
+          <q-item-section avatar>
+            <q-icon name="list_alt" />
+          </q-item-section>
+          <q-item-section>Bienes</q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 

@@ -16,6 +16,15 @@ const routes: RouteRecordRaw[] = [
         component: () =>
           import('src/modules/Defendants/View/DefendantPage.vue'),
       },
+      {
+        path: 'asset-types',
+        component: () =>
+          import('src/modules/AssetTypes/View/AssetTypesPage.vue'),
+      },
+      {
+        path: 'assets',
+        component: () => import('../modules/Assets/View/AssetsPage.vue'),
+      },
     ],
   },
   // ... otras rutas
