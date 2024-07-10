@@ -25,6 +25,19 @@ const routes: RouteRecordRaw[] = [
         path: 'assets',
         component: () => import('../modules/Assets/View/AssetsPage.vue'),
       },
+      {
+        path: 'courts',
+        component: () => import('../modules/Courts/view/CourtsPage.vue'),
+      },
+      {
+        path: 'secretaries',
+        component: () =>
+          import('../modules/Secretaries/View/SecretariesPage.vue'),
+      },
+      {
+        path: 'cases',
+        component: () => import('../modules/Cases/View/CasesPage.vue'),
+      },
     ],
   },
   // ... otras rutas

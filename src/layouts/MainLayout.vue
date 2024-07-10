@@ -10,9 +10,7 @@
           aria-label="Menu"
           @click="toggleLeftDrawer"
         />
-
         <q-toolbar-title> Estudio Jurídico </q-toolbar-title>
-
         <div v-if="isAuthenticated">
           {{ userName }}
           <q-btn flat dense round icon="logout" @click="logout" />
@@ -25,9 +23,9 @@
         <q-item-label header>Menu</q-item-label>
         <q-item clickable to="/" exact>
           <q-item-section avatar>
-            <q-icon name="home" />
+            <q-icon name="dashboard" />
           </q-item-section>
-          <q-item-section>Inicio</q-item-section>
+          <q-item-section>Dashboard</q-item-section>
         </q-item>
         <q-item clickable to="/clients" exact>
           <q-item-section avatar>
@@ -37,21 +35,39 @@
         </q-item>
         <q-item clickable to="/defendants" exact>
           <q-item-section avatar>
-            <q-icon name="lock" />
+            <q-icon name="gavel" />
           </q-item-section>
           <q-item-section>Demandados</q-item-section>
         </q-item>
         <q-item clickable to="/asset-types" exact>
           <q-item-section avatar>
-            <q-icon name="label_important" />
+            <q-icon name="category" />
           </q-item-section>
           <q-item-section>Tipo de Bienes</q-item-section>
         </q-item>
         <q-item clickable to="/assets" exact>
           <q-item-section avatar>
-            <q-icon name="list_alt" />
+            <q-icon name="attach_money" />
           </q-item-section>
           <q-item-section>Bienes</q-item-section>
+        </q-item>
+        <q-item clickable to="/courts" exact>
+          <q-item-section avatar>
+            <q-icon name="account_balance" />
+          </q-item-section>
+          <q-item-section>Juzgados</q-item-section>
+        </q-item>
+        <q-item clickable to="/secretaries" exact>
+          <q-item-section avatar>
+            <q-icon name="person" />
+          </q-item-section>
+          <q-item-section>Secretarías</q-item-section>
+        </q-item>
+        <q-item clickable to="/cases" exact>
+          <q-item-section avatar>
+            <q-icon name="gavel" />
+          </q-item-section>
+          <q-item-section>Casos</q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
