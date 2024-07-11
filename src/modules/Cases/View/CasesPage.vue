@@ -43,54 +43,91 @@
         </q-table>
       </div>
     </div>
-    <q-dialog v-model="dialogVisible" persistent>
-      <q-card style="min-width: 350px">
+    <q-dialog class="row" v-model="dialogVisible" persistent>
+      <q-card style="min-width: 680px; padding-right: -30px">
         <q-card-section>
           <div class="text-h6">
             {{ editingCase.id ? 'Editar' : 'Nuevo' }} Caso
           </div>
         </q-card-section>
-        <q-card-section>
-          <q-input v-model="editingCase.case_number" label="Número de Caso" />
-          <q-select
-            v-model="editingCase.court_id"
-            :options="courtOptions"
-            label="Juzgado"
-            option-value="value"
-            option-label="label"
-            map-options
-            emit-value
-          />
-          <q-select
-            v-model="editingCase.secretary_id"
-            :options="secretaryOptions"
-            label="Secretaría"
-            option-value="value"
-            option-label="label"
-            map-options
-            emit-value
-          />
-          <q-input
-            v-model="editingCaseStartDate"
-            label="Fecha de Inicio"
-            type="date"
-          />
-          <q-input
-            v-model.number="editingCase.claim_amount"
-            label="Monto de la Demanda"
-            type="number"
-          />
-          <q-input
-            v-model="editingCase.impulse_description"
-            label="Descripción del Impulso"
-            type="textarea"
-          />
-          <q-input v-model="editingCase.current_status" label="Estado Actual" />
-          <q-input
-            v-model="editingCase.observation"
-            label="Observación"
-            type="textarea"
-          />
+        <q-card-section class="col q-gutter-sm">
+          <div class="row q-gutter-sm">
+            <q-input
+              v-model="editingCase.case_number"
+              label="Número de Caso"
+              outlined
+              dense
+              class="col-3"
+            />
+            <q-select
+              v-model="editingCase.court_id"
+              :options="courtOptions"
+              label="Juzgado"
+              option-value="value"
+              option-label="label"
+              map-options
+              emit-value
+              outlined
+              dense
+              class="col-3"
+            />
+            <q-select
+              v-model="editingCase.secretary_id"
+              :options="secretaryOptions"
+              label="Secretaría"
+              option-value="value"
+              option-label="label"
+              map-options
+              emit-value
+              outlined
+              dense
+              class="col-3"
+            />
+
+            <q-input
+              v-model="editingCaseStartDate"
+              label="Fecha de Inicio"
+              type="date"
+              outlined
+              dense
+              class="col-3"
+            />
+            <q-input
+              v-model.number="editingCase.claim_amount"
+              label="Monto de la Demanda"
+              type="number"
+              outlined
+              class="col-3"
+              dense
+            />
+            <q-select
+              v-model="editingCase.current_status"
+              label="Estado Actual"
+              outlined
+              dense
+              class="col-3"
+              :options="estadoOptions"
+            />
+          </div>
+          <div class="row q-gutter-sm">
+            <q-input
+              v-model="editingCase.impulse_description"
+              label="Descripción del Impulso"
+              type="textarea"
+              outlined
+              class="col-4"
+              dense
+            />
+
+            <q-input
+              v-model="editingCase.observation"
+              label="Observación"
+              type="textarea"
+              outlined
+              class="col-5"
+              dense
+            />
+          </div>
         </q-card-section>
         <q-card-actions align="right">
           <q-btn flat label="Cancelar" color="primary" v-close-popup />
@@ -126,6 +163,23 @@ export default defineComponent({
     const dialogVisible = ref(false);
     const editingCase = ref<Partial<Case>>({});
 
+    //constt para buscar los nombres de secretaria y juzgado
+    const estadoOptions = ref([
+      { label: 'Iniciado', value: 'Iniciado' },
+      { label: 'Proceso', value: 'Proceso' },
+      { label: 'Ejecutado', value: 'Ejecutado' },
+      { label: 'Finalizado', value: 'Finalizado' },
+    ]);
+    const getCourtName = (courtId: string) => {
+      const court = courts.value.find((c) => c.id === courtId);
+      return court ? court.name : 'Desconocido';
+    };
+
+    const getSecretaryName = (secretaryId: string) => {
+      const secretary = secretaries.value.find((s) => s.id === secretaryId);
+      return secretary ? secretary.name : 'Desconocido';
+    };
+
     const columns: QTableColumn[] = [
       {
         name: 'case_number',
@@ -139,14 +193,14 @@ export default defineComponent({
         name: 'court_name',
         align: 'left',
         label: 'Juzgado',
-        field: 'court_name',
+        field: (row) => getCourtName(row.court_id),
         sortable: true,
       },
       {
         name: 'secretary_name',
         align: 'left',
         label: 'Secretaría',
-        field: 'secretary_name',
+        field: (row) => getSecretaryName(row.secretary_id),
         sortable: true,
       },
       {
@@ -230,6 +284,8 @@ export default defineComponent({
       }
     });
 
+    //funcion para
+
     const openCreateDialog = () => {
       editingCase.value = {};
       dialogVisible.value = true;
@@ -282,6 +338,9 @@ export default defineComponent({
       editCase,
       deleteCase,
       saveOrUpdateCase,
+      getCourtName,
+      getSecretaryName,
+      estadoOptions,
     };
   },
 });
