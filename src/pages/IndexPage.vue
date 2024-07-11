@@ -1,6 +1,6 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <h1>HELOOOO</h1>
+    <h5>Se cargara los ultimos casos cargados</h5>
   </q-page>
 </template>
 
