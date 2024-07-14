@@ -11,6 +11,7 @@ export class CaseHistoryController {
 
   async getCaseHistory(caseId: string): Promise<CaseHistory[]> {
     try {
+      console.log('Solicitando histórico para el caso:', caseId); // Para depuración
       return await this.repository.getCaseHistory(caseId);
     } catch (error) {
       console.error('Error in CaseHistoryController:', error);
