@@ -54,7 +54,7 @@
           <div class="row q-gutter-sm">
             <q-input
               v-model="editingCase.case_number"
-              label="Número de Caso"
+              label="Nombre o N ° de Caso"
               outlined
               dense
               class="col-3"
