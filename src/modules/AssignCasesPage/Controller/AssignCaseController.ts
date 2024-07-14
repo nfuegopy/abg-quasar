@@ -50,13 +50,18 @@ export class AssignCaseController {
     return result;
   }
 
+  // En AssignCaseController.ts
+
   async assignCaseToDefendant(
     caseId: string,
-    defendantId: string
+    defendantId: string,
+    isCodeudor: boolean
   ): Promise<AssignCaseResponse> {
+    const relationshipType = isCodeudor ? 'codeudor' : 'demandado';
+
     const result = await this.repository.assignCaseToDefendant(caseId, {
       defendant_id: defendantId,
-      relationship_type: 'demandado',
+      relationship_type: relationshipType,
     });
 
     // Obtener información del demandado
@@ -65,7 +70,7 @@ export class AssignCaseController {
     // Actualizar el caso
     await this.casesController.updateCase(caseId, {
       current_status: 'Asignado',
-      observation: `Asignado a demandado: ${defendant.first_name} ${defendant.last_name}`,
+      observation: `Asignado a ${relationshipType}: ${defendant.first_name} ${defendant.last_name}`,
     });
 
     return result;

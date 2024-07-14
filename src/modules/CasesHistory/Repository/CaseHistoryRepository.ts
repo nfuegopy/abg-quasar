@@ -4,9 +4,14 @@ import { CaseHistory } from '../Model/CaseHistory';
 
 export class CaseHistoryRepository {
   async getCaseHistory(caseId: string): Promise<CaseHistory[]> {
-    const response = await api.get<CaseHistory[]>(
-      `/case-history/case/${caseId}`
-    );
-    return response.data;
+    try {
+      const response = await api.get<CaseHistory[]>(
+        `/case-history/case/${caseId}`
+      );
+      return response.data;
+    } catch (error) {
+      console.error('Error en CaseHistoryRepository:', error);
+      throw error;
+    }
   }
 }

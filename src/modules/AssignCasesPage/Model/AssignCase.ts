@@ -17,7 +17,9 @@ export interface AssignClientCaseData {
   relationship_type: string;
 }
 
+// En el archivo de modelos (por ejemplo, AssignCase.ts)
+
 export interface AssignDefendantCaseData {
   defendant_id: string;
-  relationship_type: string;
+  relationship_type: 'demandado' | 'codeudor';
 }

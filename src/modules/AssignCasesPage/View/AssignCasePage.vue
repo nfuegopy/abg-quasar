@@ -103,26 +103,28 @@
             </q-item>
           </template>
         </q-select>
-        <q-select
-          v-else
-          v-model="selectedDefendant"
-          :options="defendants"
-          :option-label="(item) => `${item.first_name} ${item.last_name}`"
-          label="Seleccione un demandado"
-          emit-value
-          map-options
-          use-input
-          input-debounce="0"
-          @filter="filterDefendants"
-        >
-          <template v-slot:no-option>
-            <q-item>
-              <q-item-section class="text-grey">
-                No se encontraron demandados
-              </q-item-section>
-            </q-item>
-          </template>
-        </q-select>
+        <template v-else>
+          <q-select
+            v-model="selectedDefendant"
+            :options="defendants"
+            :option-label="(item) => `${item.first_name} ${item.last_name}`"
+            label="Seleccione un demandado"
+            emit-value
+            map-options
+            use-input
+            input-debounce="0"
+            @filter="filterDefendants"
+          >
+            <template v-slot:no-option>
+              <q-item>
+                <q-item-section class="text-grey">
+                  No se encontraron demandados
+                </q-item-section>
+              </q-item>
+            </template>
+          </q-select>
+          <q-checkbox v-model="isCodeudor" label="¿Es codeudor (garante)?" />
+        </template>
         <q-btn
           v-if="assignmentType === 'client'"
           color="secondary"
@@ -164,6 +166,9 @@
           {{ assignmentType === 'client' ? 'Cliente' : 'Demandado' }}:
           {{ selectedPerson?.first_name }} {{ selectedPerson?.last_name }}
         </p>
+        <p v-if="assignmentType === 'defendant' && isCodeudor">
+          Tipo: Codeudor (Garante)
+        </p>
         <q-stepper-navigation>
           <q-btn color="primary" label="Asignar Caso" @click="assignCase" />
           <q-btn
@@ -192,6 +197,7 @@ export default defineComponent({
   name: 'AssignCasePage',
   setup() {
     const router = useRouter();
+    const $q = useQuasar();
     const controller = new AssignCaseController();
 
     const step = ref(1);
@@ -202,7 +208,8 @@ export default defineComponent({
     const selectedClient = ref<Client | null>(null);
     const selectedDefendant = ref<Defendant | null>(null);
     const assignmentType = ref<'client' | 'defendant'>('client');
-    const $q = useQuasar();
+    const isCodeudor = ref(false);
+
     const selectedPerson = computed(() =>
       assignmentType.value === 'client'
         ? selectedClient.value
@@ -303,10 +310,13 @@ export default defineComponent({
       router.push('/defendants');
     };
 
+    // En el componente Vue
+
     const assignCase = async () => {
       if (selectedCase.value && selectedPerson.value) {
         try {
           let result;
+
           if (assignmentType.value === 'client') {
             result = await controller.assignCaseToClient(
               selectedCase.value.id,
@@ -315,11 +325,10 @@ export default defineComponent({
           } else {
             result = await controller.assignCaseToDefendant(
               selectedCase.value.id,
-              selectedPerson.value.id
+              selectedPerson.value.id,
+              isCodeudor.value
             );
           }
-
-          console.log('Resultado de la asignación:', result);
 
           if (result && result.id) {
             $q.notify({
@@ -335,6 +344,7 @@ export default defineComponent({
             selectedClient.value = null;
             selectedDefendant.value = null;
             assignmentType.value = 'client';
+            isCodeudor.value = false;
           } else {
             throw new Error('No se recibió una respuesta válida del servidor');
           }
@@ -358,6 +368,7 @@ export default defineComponent({
       selectedClient,
       selectedDefendant,
       assignmentType,
+      isCodeudor,
       selectedPerson,
       goToCreateCase,
       goToCreateClient,

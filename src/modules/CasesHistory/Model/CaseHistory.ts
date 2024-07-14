@@ -5,5 +5,5 @@ export interface CaseHistory {
   description: string;
   changed_fields: Record<string, unknown>;
   user_id: string;
-  timestamp: Date;
+  timestamp: string | Date;
 }
