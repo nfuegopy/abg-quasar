@@ -1,6 +1,7 @@
 // CaseHistoryController.ts
 import { CaseHistoryRepository } from '../Repository/CaseHistoryRepository';
 import { CaseHistory } from '../Model/CaseHistory';
+import { api } from 'src/boot/axios';
 
 export class CaseHistoryController {
   private repository: CaseHistoryRepository;
@@ -17,5 +18,12 @@ export class CaseHistoryController {
       console.error('Error in CaseHistoryController:', error);
       throw error; // Re-throw the error to be caught in the component
     }
+  }
+
+  async createCaseHistory(
+    caseHistory: Omit<CaseHistory, 'id'>
+  ): Promise<CaseHistory> {
+    const response = await api.post<CaseHistory>('/case-history', caseHistory);
+    return response.data;
   }
 }
