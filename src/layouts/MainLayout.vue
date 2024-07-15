@@ -4,7 +4,7 @@
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
+            <img src="src/assets/3183165.png" />
           </q-avatar>
           Estudio Jurídico
         </q-toolbar-title>
@@ -96,7 +96,7 @@
 
         <q-btn-dropdown stretch flat icon="payments" label="Pagos">
           <q-list>
-            <q-item clickable v-close-popup>
+            <q-item clickable v-close-popup to="/payments">
               <q-item-section avatar>
                 <q-icon name="receipt" />
               </q-item-section>
