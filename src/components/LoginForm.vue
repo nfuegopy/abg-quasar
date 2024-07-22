@@ -7,7 +7,6 @@
       type="email"
       :rules="[(val) => !!val || 'Email is required']"
     />
-
     <q-input
       filled
       v-model="password"
@@ -23,9 +22,8 @@
         />
       </template>
     </q-input>
-
     <div>
-      <q-btn label="Login" type="submit" color="primary" />
+      <q-btn label="Login" type="submit" color="primary" class="full-width" />
     </div>
   </q-form>
 </template>
@@ -34,6 +32,7 @@
 import { defineComponent, ref } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
 import { useRouter } from 'vue-router';
+import { useQuasar } from 'quasar';
 
 export default defineComponent({
   name: 'LoginForm',
@@ -43,6 +42,7 @@ export default defineComponent({
     const email = ref('');
     const password = ref('');
     const isPwd = ref(true);
+    const $q = useQuasar();
 
     const onSubmit = async () => {
       const success = await authStore.login(email.value, password.value);
@@ -50,6 +50,11 @@ export default defineComponent({
         router.push('/');
       } else {
         // Manejar error de login
+        $q.notify({
+          position: 'top-right',
+          color: 'negative',
+          message: 'Usuario o contraseña no validos',
+        });
       }
     };
 

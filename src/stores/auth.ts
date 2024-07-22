@@ -72,4 +72,5 @@ export const useAuthStore = defineStore('auth', {
       delete api.defaults.headers.common['Authorization'];
     },
   },
+  persist: true,
 });
