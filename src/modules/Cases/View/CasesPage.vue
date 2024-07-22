@@ -54,7 +54,7 @@
           <div class="row q-gutter-sm">
             <q-input
               v-model="editingCase.case_number"
-              label="Número de Caso"
+              label="Nombre o N ° de Caso"
               outlined
               dense
               class="col-3"
@@ -83,7 +83,6 @@
               dense
               class="col-3"
             />
-
             <q-input
               v-model="editingCaseStartDate"
               label="Fecha de Inicio"
@@ -100,14 +99,6 @@
               class="col-3"
               dense
             />
-            <q-select
-              v-model="editingCase.current_status"
-              label="Estado Actual"
-              outlined
-              dense
-              class="col-3"
-              :options="estadoOptions"
-            />
           </div>
           <div class="row q-gutter-sm">
             <q-input
@@ -118,7 +109,6 @@
               class="col-4"
               dense
             />
-
             <q-input
               v-model="editingCase.observation"
               label="Observación"
@@ -163,13 +153,6 @@ export default defineComponent({
     const dialogVisible = ref(false);
     const editingCase = ref<Partial<Case>>({});
 
-    //constt para buscar los nombres de secretaria y juzgado
-    const estadoOptions = ref([
-      { label: 'Iniciado', value: 'Iniciado' },
-      { label: 'Proceso', value: 'Proceso' },
-      { label: 'Ejecutado', value: 'Ejecutado' },
-      { label: 'Finalizado', value: 'Finalizado' },
-    ]);
     const getCourtName = (courtId: string) => {
       const court = courts.value.find((c) => c.id === courtId);
       return court ? court.name : 'Desconocido';
@@ -284,8 +267,6 @@ export default defineComponent({
       }
     });
 
-    //funcion para
-
     const openCreateDialog = () => {
       editingCase.value = {};
       dialogVisible.value = true;
@@ -304,9 +285,11 @@ export default defineComponent({
             editingCase.value as Case
           );
         } else {
-          await casesController.createCase(
-            editingCase.value as Omit<Case, 'id' | 'created_at' | 'updated_at'>
-          );
+          const newCase = {
+            ...editingCase.value,
+            current_status: 'Iniciado',
+          } as Omit<Case, 'id' | 'created_at' | 'updated_at'>;
+          await casesController.createCase(newCase);
         }
         dialogVisible.value = false;
         cases.value = await casesController.getCases();
@@ -340,7 +323,6 @@ export default defineComponent({
       saveOrUpdateCase,
       getCourtName,
       getSecretaryName,
-      estadoOptions,
     };
   },
 });

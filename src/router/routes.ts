@@ -42,6 +42,20 @@ const routes: RouteRecordRaw[] = [
         path: 'user',
         component: () => import('../modules/User/View/UserPage.vue'),
       },
+      {
+        path: 'assign-case',
+        component: () =>
+          import('../modules/AssignCasesPage/View/AssignCasePage.vue'),
+      },
+      {
+        path: 'case-history',
+        component: () =>
+          import('../modules/CasesHistory/view/CaseHistoryPage.vue'),
+      },
+      {
+        path: 'payments',
+        component: () => import('../modules/Payments/view/PaymentsPage.vue'),
+      },
     ],
   },
 
