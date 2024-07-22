@@ -6,7 +6,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: 'login', component: () => import('pages/LoginPage.vue') },
+      // { path: 'login', component: () => import('pages/LoginPage.vue') },
       {
         path: 'clients',
         component: () => import('src/modules/Clients/View/ClientsPage.vue'),
@@ -38,8 +38,20 @@ const routes: RouteRecordRaw[] = [
         path: 'cases',
         component: () => import('../modules/Cases/View/CasesPage.vue'),
       },
+      {
+        path: 'user',
+        component: () => import('../modules/User/View/UserPage.vue'),
+      },
     ],
   },
+
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('src/pages/LoginPage.vue'),
+    meta: { requiresAuth: false },
+  },
+
   // ... otras rutas
 ];
 
